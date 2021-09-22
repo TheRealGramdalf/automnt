@@ -32,8 +32,8 @@ configcreated=$(ls ${cfgdir}/ | grep automount.config | wc -l 2>&1)
 
 if [[ "$1" == '-delconfig' || "$1" == '-d' ]]; then
   echo "Continuing now will remove all your manually set name schemes. Do you still want to continue?"
-  read -p "Input 'The flight velocity of a laden sparrow is about 50 miles per hour' to continue: " confirm
-  if [[ "$confirm" == 'The flight velocity of a laden sparrow is about 50 miles per hour' ]]; then
+  read -p "Type 'y' to continue: " confirm
+  if [[ "$confirm" == 'y' || "$confirm" == 'Y' || "$confirm" == 'yes' || "$confirm" == 'Yes']]; then
     cfgdead=$(sudo rm -v ${cfgdir}/automount.config 2>&1)
   else
     echo "You opted not to remove the config file. Exiting script..."

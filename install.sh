@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script will add a folder at the root directory called /startupscripts, and add the script to /usr/bin. 
+# This script will add automnt.sh to /usr/bin. 
 # It will also update the script if it has already been installed.
 # After installation, call automount from a terminal to run the script. You may optionally add a crontab entry,it should look something like.
 # '@reboot sudo automount' 
@@ -32,22 +32,15 @@ then
     sleep 1
     echo "1.."
     echo "Commence install!"
-    lastdel=`sudo rm -v /usr/bin/automount`
-    if [[ "$lastdel" == "removed '/usr/bin/automount'" ]]
+    lastdel=`sudo rm -v /usr/bin/automnt`
+    if [[ "$lastdel" == "removed '/usr/bin/automnt'" ]]
     then
         echo "Removed old version from /usr/bin/"
     else
         echo "Either an older version has not been installed, or the file could not be found. Commencing with script anyways."
     fi
-    sudo cp automount.sh /usr/bin/automount
-    sudo chmod +x /usr/bin/automount
-    sscreated=$(sudo mkdir /startupscripts 2>&1)
-    if [[ "$sscreated" == "mkdir: cannot create directory ‘/startupscripts’: File exists" ]]
-    then
-        echo "Did not create the /startupscripts/ directory. Either the file is already there, or something went wrong."
-    else
-        echo "Created the /startupscripts/ directory"
-    fi
+    sudo cp automount.sh /usr/bin/automnt
+    sudo chmod +x /usr/bin/automnt
     installdone=$(ls /usr/bin/ | grep "automount" | wc -l 2>&1)
     if [[ "$installdone" == 1 ]]
     then
