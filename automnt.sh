@@ -58,7 +58,7 @@ if [[ "$1" == '-help' || "$1" == '-h' ]]; then
   echo "  -overwrite [-o]: Runs the script as usual, except the config file will be overwritten. This will delete all stored UUID names. "
   echo ""
   # For anyone who wants to fork the script, please keep the following line in. If you want to add your own as well, by all means do so. I would like at least a little credit, however.
-  echo " Here is the link to the original Github repository: https://github.com/TheRealGramdalf/ubuntuserver-automount"
+  echo " Here is the link to the original Github repository: https://github.com/TheRealGramdalf/automnt"
   exit
 fi
 
@@ -96,8 +96,8 @@ done
 # If the user says to overwrite the current config, tell the program that the config file is NOT there, so it will overwrite it automatically.
 if [[ "$1" == '-overwrite' || "$1" == '-o' ]]; then
   echo "Continuing now will remove all your manually set name schemes. Do you still want to continue?"
-  read -p "Input 'Chicken bread' to continue: " confirm
-  if [[ "$confirm" == 'Chicken bread' ]]; then
+  read -p "Do you want to continue? (y/n): " confirm
+  if [[ "$confirm" == 'y' ]]; then
     declare configcreated=0
   else
     echo "You opted not to remove the config file. Exiting script..."

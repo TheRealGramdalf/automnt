@@ -1,4 +1,4 @@
-# Automount Script || By TheRealGramdalf
+# automnt.sh Script || By TheRealGramdalf
 
 BASH script designed for Ubuntu server 20.04 LTS which will automatically mount all connected USB drives, complete with a UUID-based naming config file. Feel free to ask questions about anything in this script. At the moment, the script has only been tested on Ubuntu Server 20.04 LTS, but I may test it on other distros in the future.
 
