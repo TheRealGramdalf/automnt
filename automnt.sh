@@ -32,8 +32,8 @@ configcreated=$(ls ${cfgdir}/ | grep automount.config | wc -l 2>&1)
 
 if [[ "$1" == '-delconfig' || "$1" == '-d' ]]; then
   echo "Continuing now will remove all your manually set name schemes. Do you still want to continue?"
-  read -p "Type 'y' to continue: " confirm
-  if [[ "$confirm" == 'y' || "$confirm" == 'Y' || "$confirm" == 'yes' || "$confirm" == 'Yes']]; then
+  read -p "Do you want to continue? (y/n)" confirm
+  if [[ "$confirm" == 'y']]; then
     cfgdead=$(sudo rm -v ${cfgdir}/automount.config 2>&1)
   else
     echo "You opted not to remove the config file. Exiting script..."
@@ -122,7 +122,7 @@ if [[ $configcreated == 0 ]]; then
   echo '' | sudo tee -a ${cfgdir}/automount.config
 fi
 
-# Check for the config file after creating it, so that the 
+# Check for the config file after creating it, so that the
 # Add new drives to the config file
 for appenddrive in "${altered_uuid_list[@]}"
 do
