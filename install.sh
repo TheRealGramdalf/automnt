@@ -34,16 +34,16 @@ then
     sleep 1
     echo "1.."
     echo "Commence install!"
-    lastdel=`sudo rm -v /usr/bin/automount`
+    lastdel=$(sudo rm -v /usr/bin/automount)
     if [[ "$lastdel" == "removed '/usr/bin/automount'" ]]
     then
         echo "Removed old version from /usr/bin/"
     else
         echo "Either an older version has not been installed, or the file could not be found. Commencing with script anyways."
     fi
-    sudo cp automount.sh /usr/bin/automount
-    sudo chmod +x /usr/bin/automount
-    mkdir $HOME/Automount
+    sudo cp automount.sh /usr/bin/automount 2>&1
+    sudo chmod +x /usr/bin/automount 2>&1
+    mkdir $HOME/Automount 2>&1
     installdone=$(ls /usr/bin/ | grep "automount" | wc -l 2>&1)
     if [[ "$installdone" == 1 ]]
     then

@@ -26,9 +26,12 @@ fi
 
 mntdir="$HOME/Automount"
 cfgdir="/etc"
+
+# Before checking the config file, set $configcreated to 0, so that the script can detect if the config file should be generated.
+configcreated=0
 # Check the whether or not the config file has been generated
-# If configcreated is equal to 0, there is no config file found. If it is equal to 1, then the config file has been found.
-configcreated=$(ls ${cfgdir}/ | grep automount.config | wc -l 2>&1)
+# If configcreated is NULL, there is no config file found. If it is equal to 1, then the config file has been found.
+[ -f "${cfgdir}/automount.config" ] && configcreated=1
 
 if [[ "$1" == '-delconfig' || "$1" == '-d' ]]; then
   echo "Continuing now will remove all your manually set name schemes. Do you still want to continue?"
@@ -82,8 +85,8 @@ sudo umount -a
 sudo rm -rf ${mntdir}/
 
 # Create /mountpoints once again, to allow the rest of the script to work properly.
-sudo mkdir ${mntdir}/
-touch ${mntdir}/readme.txt
+sudo mkdir ${mntdir}/ 2>&1
+touch ${mntdir}/readme.txt 2>&1
 # Source the readme so that when the variable run=true the script will be run within the next 5 mins
 
 
@@ -111,16 +114,16 @@ fi
 if [[ $configcreated == 0 ]]; then
   touch automount.config
   # Overwite rather than append the first line, so that the file is overwritten if otherwise specified.
-  echo '#!/bin/bash' | sudo tee ${cfgdir}/automount.config
+  echo '#!/bin/bash' | sudo tee ${cfgdir}/automount.config 2>&1
   # Start appending text using tee -a rather than overwiting current text
-  echo '' | sudo tee -a ${cfgdir}/automount.config
-  echo '# This is the configuration file for the automount.sh script' | sudo tee -a ${cfgdir}/automount.config
-  echo '# Every drive that has been connected while this script is active will be stored in this file, based on UUID' | sudo tee -a ${cfgdir}/automount.config
-  echo '# Each line contains one shell variable, each name being equal to the respective UUID. ' | sudo tee -a ${cfgdir}/automount.config
-  echo '# Each variable is then set as equal to a string, which will be used to identify the disk when it is mounted in the ~/mountpoints folder.' | sudo tee -a ${cfgdir}/automount.config
-  echo '#########################################################################################################################################' | sudo tee -a ${cfgdir}/automount.config
-  echo '############################################################ Begin definitions ##########################################################' | sudo tee -a ${cfgdir}/automount.config
-  echo '#########################################################################################################################################' | sudo tee -a ${cfgdir}/automount.config
+  echo '' | sudo tee -a ${cfgdir}/automount.config 2>&1
+  echo '# This is the configuration file for the automount.sh script' | sudo tee -a ${cfgdir}/automount.config 2>&1
+  echo '# Every drive that has been connected while this script is active will be stored in this file, based on UUID' | sudo tee -a ${cfgdir}/automount.config 2>&1
+  echo '# Each line contains one shell variable, each name being equal to the respective UUID. ' | sudo tee -a ${cfgdir}/automount.config 2>&1
+  echo '# Each variable is then set as equal to a string, which will be used to identify the disk when it is mounted in the ~/mountpoints folder.' | sudo tee -a ${cfgdir}/automount.config 2>&1
+  echo '#########################################################################################################################################' | sudo tee -a ${cfgdir}/automount.config 2>&1
+  echo '############################################################ Begin definitions ##########################################################' | sudo tee -a ${cfgdir}/automount.config 2>&1
+  echo '#########################################################################################################################################' | sudo tee -a ${cfgdir}/automount.config 2>&1
   echo '' | sudo tee -a ${cfgdir}/automount.config
 fi
 
