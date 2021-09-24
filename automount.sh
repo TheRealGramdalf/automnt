@@ -24,7 +24,7 @@ if [[ $EUID -ne 0 ]]; then
    exit
 fi
 
-mntdir=""
+mntdir="$HOME/Automount"
 cfgdir="/etc"
 # Check the whether or not the config file has been generated
 # If configcreated is equal to 0, there is no config file found. If it is equal to 1, then the config file has been found.
@@ -33,13 +33,15 @@ configcreated=$(ls ${cfgdir}/ | grep automount.config | wc -l 2>&1)
 if [[ "$1" == '-delconfig' || "$1" == '-d' ]]; then
   echo "Continuing now will remove all your manually set name schemes. Do you still want to continue?"
   read -p "Do you want to continue? (y/n)" confirm
-  if [[ "$confirm" == 'y']]; then
+  if [[ "$confirm" == 'y' ]]
+  then
     cfgdead=$(sudo rm -v ${cfgdir}/automount.config 2>&1)
   else
     echo "You opted not to remove the config file. Exiting script..."
     exit
   fi
-  if [[ $cfgdead == "removed '${cfgdir}/automount.config'" ]]; then
+  if [[ $cfgdead == "removed '${cfgdir}/automount.config'" ]]
+  then
     echo 'Config successfully deleted! Make sure to run the script again if you want to create a new config.'
     exit
   else
@@ -58,7 +60,7 @@ if [[ "$1" == '-help' || "$1" == '-h' ]]; then
   echo "  -overwrite [-o]: Runs the script as usual, except the config file will be overwritten. This will delete all stored UUID names. "
   echo ""
   # For anyone who wants to fork the script, please keep the following line in. If you want to add your own as well, by all means do so. I would like at least a little credit, however.
-  echo " Here is the link to the original Github repository: https://github.com/TheRealGramdalf/automnt"
+  echo " Here is the link to the original Github repository: https://github.com/TheRealGramdalf/automount"
   exit
 fi
 
