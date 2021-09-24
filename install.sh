@@ -7,6 +7,8 @@
 # This will automatically call the script at boot. In order to add it, you should log in as root, so that the script can run with the correct permissions. 
 # Type 'sudo -i' to log in as root (you may need to enter your password, and your user needs to have sudo priviledges)
 # Enter 'crontab -e' to edit the crontab file
+# If you want the crontab to work correctly, you need to allow the automount.sh file to be run as root without a password. In this case, run the 'sudo visudo' command to open the editor.
+# After opening the editor, add this line to the very bottom: 'ALL ALL=NOPASSWD: /usr/bin/automount' (add everything within the quotes, excluding said quotes).
 # Enter the crontab entry at the bottom of the file. (crontab entry should look like this: '@reboot sudo automount')
 # Save and exit, and you are done! Every time you reboot, the script will be run and all drives will be mounted.
 
