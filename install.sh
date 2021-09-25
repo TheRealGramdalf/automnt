@@ -15,7 +15,9 @@
 # Check to see if the script is being run with root priviledges
 if [[ $EUID -ne 0 ]]; then
    echo "This must be run as root. Please use 'sudo' to elevate your permissions."
-   exit
+   echo "If you have already entered youre password in this session, you will not be prompted fo your password."
+   sleep 3
+   sudo echo ''
 fi
 
 echo "Are you sure you want to install? This will overwrite any modifications you might have made to the older version of the script."
@@ -43,7 +45,7 @@ then
     fi
     sudo cp automount.sh /usr/bin/automount 2>&1
     sudo chmod +x /usr/bin/automount 2>&1
-    mkdir $HOME/Automount 2>&1
+    null=$(mkdir $HOME/Automount 2>&1) 
     installdone=$(ls /usr/bin/ | grep "automount" | wc -l 2>&1)
     if [[ "$installdone" == 1 ]]
     then

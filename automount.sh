@@ -21,7 +21,9 @@
 # Helpful link: https://stackoverflow.com/questions/16553089/dynamic-variable-names-in-bash
 if [[ $EUID -ne 0 ]]; then
    echo "This must be run as root. Please use 'sudo' to elevate your permissions."
-   exit
+   echo "If you have already entered youre password in this session, you will not be prompted fo your password."
+   sleep 3
+   sudo echo ''
 fi
 
 mntdir="$HOME/Automount"
@@ -79,14 +81,14 @@ do
   drivelist+=(${tempdrivevar:17:36})
 done
 # Unmount all connected drives, so that script can run properly.
-sudo umount -a
+null=$(sudo umount -a 2>&1)
 
 # Remove all files within this folder. DO NOT PUT VALUABLE FILES DIRECTLY WITHIN /usr/local/mountpoints!!!!!!!
-sudo rm -rf ${mntdir}/
+null=$(sudo rm -rf ${mntdir}/ 2>&1)
 
 # Create /mountpoints once again, to allow the rest of the script to work properly.
-sudo mkdir ${mntdir}/ 2>&1
-touch ${mntdir}/readme.txt 2>&1
+null=$(sudo mkdir ${mntdir}/ 2>&1) 
+null=$(touch ${mntdir}/readme.txt 2>&1)
 # Source the readme so that when the variable run=true the script will be run within the next 5 mins
 
 
@@ -99,10 +101,12 @@ do
 done
 
 # If the user says to overwrite the current config, tell the program that the config file is NOT there, so it will overwrite it automatically.
-if [[ "$1" == '-overwrite' || "$1" == '-o' ]]; then
+if [[ "$1" == '-overwrite' || "$1" == '-o' ]]
+then
   echo "Continuing now will remove all your manually set name schemes. Do you still want to continue?"
   read -p "Do you want to continue? (y/n): " confirm
-  if [[ "$confirm" == 'y' ]]; then
+  if [[ "$confirm" == 'y' ]]
+  then
     declare configcreated=0
   else
     echo "You opted not to remove the config file. Exiting script..."
