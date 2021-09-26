@@ -7,11 +7,12 @@
 # This will automatically call the script at boot. 
 # Enter 'crontab -e' to edit the crontab file
 # If you want the crontab to work correctly, you need to allow the automount.sh file to be run as root without a password. In this case, run the 'sudo visudo' command to open the editor.
-# After opening the editor, add this line to the very bottom: 'ALL ALL=NOPASSWD: /usr/bin/automount,/etc/automount.config' (add everything within the quotes, excluding said quotes).
-# Enter the crontab entry at the bottom of the file. (crontab entry should look like this: '@reboot sudo bash /etc/automount.config -cronread')
+# After opening the editor, add this line to the very bottom: 'ALL ALL=NOPASSWD: /usr/bin/automount' (add everything within the quotes, excluding said quotes).
+# Enter the crontab entry at the bottom of the file. (crontab entry should look like this: '@reboot sudo bash /usr/bin/automount')
 # If you want the system to check the readme file to see if the drives should be reloaded, add a crontab entry that looks like this:
-# '* * * * * sudo bash /etc/automount.config -cronread'
+# '*/5 * * * * sudo bash /usr/bin/automount -cronread'
 # Save and exit, and you are done! Every time you reboot, the script will be run and all drives will be mounted.
+# You can change the number after the '/' in order to change the amount of time between checks. '5' means 5 minutes.
 
 # Check to see if the script is being run with root priviledges
 if [[ $EUID -ne 0 ]]; then
