@@ -130,15 +130,28 @@ if [[ $configcreated == 0 ]]; then
   # Overwite rather than append the first line, so that the file is overwritten if otherwise specified.
   echo '#!/bin/bash' | sudo tee ${cfgdir}/automount.config 
   # Start appending text using tee -a rather than overwiting current text
-  echo '' | sudo tee -a ${cfgdir}/automount.config 
+  echo '' | sudo tee -a ${cfgdir}/automount.config
   echo '# This is the configuration file for the automount.sh script' | sudo tee -a ${cfgdir}/automount.config 
   echo '# Every drive that has been connected while this script is active will be stored in this file, based on UUID' | sudo tee -a ${cfgdir}/automount.config 
-  echo '# Each line contains one shell variable, each name being equal to the respective UUID. ' | sudo tee -a ${cfgdir}/automount.config 
-  echo '# Each variable is then set as equal to a string, which will be used to identify the disk when it is mounted in the ~/mountpoints folder.' | sudo tee -a ${cfgdir}/automount.config 
+  echo '# Each line contains one shell variable, each name being equal to the respective UUID.' | sudo tee -a ${cfgdir}/automount.config 
+  echo '# Each variable is then set as equal to a string, which will be used to identify the disk when it is mounted in the ~/mountpoints folder.' | sudo tee -a ${cfgdir}/automount.config
+  echo '' | sudo tee -a ${cfgdir}/automount.config
+  echo '# And now, for the part of the script where the crontab will check the readme every 5 minutes.' | sudo tee -a ${cfgdir}/automount.config
+  echo 'if [[ "$1" == "-cronread" ]]; then' | sudo tee -a ${cfgdir}/automount.config
+  echo "  mntdir="${mntdir} | sudo tee -a ${cfgdir}/automount.config
+  echo '  source $mntdir/readme.txt' | sudo tee -a ${cfgdir}/automount.config 
+  echo '  if [[ "$refresh" == "true" ]]; then' | sudo tee -a ${cfgdir}/automount.config 
+  echo '    sudo bash automount &' | sudo tee -a ${cfgdir}/automount.config
+#  echo '    exit' | sudo tee -a ${cfgdir}/automount.config
+  echo '  fi' | sudo tee -a ${cfgdir}/automount.config 
+  echo 'fi' | sudo tee -a ${cfgdir}/automount.config
+  echo '' | sudo tee -a ${cfgdir}/automount.config 
   echo '#########################################################################################################################################' | sudo tee -a ${cfgdir}/automount.config 
   echo '############################################################ Begin definitions ##########################################################' | sudo tee -a ${cfgdir}/automount.config 
   echo '#########################################################################################################################################' | sudo tee -a ${cfgdir}/automount.config 
   echo '' | sudo tee -a ${cfgdir}/automount.config
+  sudo chmod +x ${cfgdir}/automount.config
+  clear
 fi
 
 # Check for the config file after creating it, so that the
