@@ -47,7 +47,7 @@ then
     fi
     sudo cp automount.sh /usr/bin/automount 2>&1
     sudo chmod +x /usr/bin/automount 2>&1
-    null=$(mkdir $HOME/Automount 2>&1) 
+    null=$(mkdir $mntdir 2>&1) 
     installdone=$(ls /usr/bin/ | grep "automount" | wc -l 2>&1)
     if [[ "$installdone" == 1 ]]
     then
