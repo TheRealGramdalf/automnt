@@ -4,8 +4,7 @@
 # It will also update the script if it has already been installed.
 # After installation, call automount from a terminal to run the script. You may optionally add a crontab entry,it should look something like.
 # '@reboot sudo automount' 
-# This will automatically call the script at boot. In order to add it, you should log in as root, so that the script can run with the correct permissions. 
-# Type 'sudo -i' to log in as root (you may need to enter your password, and your user needs to have sudo priviledges)
+# This will automatically call the script at boot. 
 # Enter 'crontab -e' to edit the crontab file
 # If you want the crontab to work correctly, you need to allow the automount.sh file to be run as root without a password. In this case, run the 'sudo visudo' command to open the editor.
 # After opening the editor, add this line to the very bottom: 'ALL ALL=NOPASSWD: /usr/bin/automount' (add everything within the quotes, excluding said quotes).
@@ -19,6 +18,9 @@ if [[ $EUID -ne 0 ]]; then
    sleep 3
    sudo echo ''
 fi
+
+mnttransfer=$(cat automount.sh | grep "mntdir=" 2>&1)
+mntdir=$(echo ${mnttransfer:8} | tr -d '"' 2>&1)
 
 echo "Are you sure you want to install? This will overwrite any modifications you might have made to the older version of the script."
 read -p "Your config file, however, will NOT be overwritten. Type 'Yes' to continue: " confirm
