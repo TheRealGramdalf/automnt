@@ -32,7 +32,7 @@ cfgdir="/etc"
 
 if [[ "$1" == "-cronread" ]]
 then
-  source ${mntdir}/readme.txt
+  source ${mntdir}/readme.md
   if [[ "$refresh" != "true" ]]
   then
     exit
@@ -100,18 +100,18 @@ null=$(sudo umount -a 2>&1)
 null=$(sudo rm -r ${mntdir}/* 2>&1)
 
 # Create a readme file for the automation side of things. Look inside the file to find out what this does.
-touch ${mntdir}/readme.txt
-echo "#!/bin/bash" | sudo tee ${mntdir}/readme.txt
-echo "" | sudo tee -a ${mntdir}/readme.txt
-echo "# This is the readme file for the automount script, which has been implemented by a system admin." | sudo tee -a ${mntdir}/readme.txt
-echo "# Because of how the program works, files placed directly within ${mntdir} will be deleted every time the system is run." | sudo tee -a ${mntdir}/readme.txt
-echo "# Since that is the case, treat this as you would a trash can. Once emptied, it is nigh impossible to recover them!" | sudo tee -a ${mntdir}/readme.txt
-echo "" | sudo tee -a ${mntdir}/readme.txt
-echo "# This file also serves another purpose. Below you will find a line that says 'refresh=false'." | sudo tee -a ${mntdir}/readme.txt
-echo "# If you change this value to 'true', and save the file, then the drives contained within this folder will be unmounted and remounted." | sudo tee -a ${mntdir}/readme.txt
-echo "# Please make sure that no file transfers are in progress before doing this!" | sudo tee -a ${mntdir}/readme.txt
-echo "" | sudo tee -a ${mntdir}/readme.txt
-echo "refresh=false" | sudo tee -a ${mntdir}/readme.txt 
+touch ${mntdir}/readme.md
+echo "#!/bin/bash" | sudo tee ${mntdir}/readme.md
+echo "" | sudo tee -a ${mntdir}/readme.md
+echo "# This is the readme file for the automount script, which has been implemented by a system admin." | sudo tee -a ${mntdir}/readme.md
+echo "# Because of how the program works, files placed directly within ${mntdir} will be deleted every time the system is run." | sudo tee -a ${mntdir}/readme.md
+echo "# Since that is the case, treat this as you would a trash can. Once emptied, it is nigh impossible to recover them!" | sudo tee -a ${mntdir}/readme.md
+echo "" | sudo tee -a ${mntdir}/readme.md
+echo "# This file also serves another purpose. Below you will find a line that says 'refresh=false'." | sudo tee -a ${mntdir}/readme.md
+echo "# If you change this value to 'true', and save the file, then the drives contained within this folder will be unmounted and remounted." | sudo tee -a ${mntdir}/readme.md
+echo "# Please make sure that no file transfers are in progress before doing this!" | sudo tee -a ${mntdir}/readme.md
+echo "" | sudo tee -a ${mntdir}/readme.md
+echo "refresh=false" | sudo tee -a ${mntdir}/readme.md 
 
 # Set a variable for each UUID, equal to a preset standard. The config file will overwrite all recognized UUIDs later on.
 for uuid in "${drivelist[@]}"
