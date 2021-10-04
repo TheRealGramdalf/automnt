@@ -27,7 +27,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # These variables determine the path in which the config and mount directories are. Please make sure the path ends WITHOUT a '/', or the file paths will be messed up.
-mntdir="/mnt/Automount"
+mntdir="/home/ncadmin/Automount"
 cfgdir="/etc"
 
 if [[ "$1" == "-cronread" ]]
@@ -36,8 +36,9 @@ then
   if [[ "$refresh" != "true" ]]
   then
     exit
+    echo "refresh=${refresh}. Not calling script."
   else
-  echo yeet! &
+    echo "refresh=true. Continuing script."
   fi
 fi
 
@@ -113,7 +114,6 @@ echo "" | sudo tee -a ${mntdir}/readme.txt
 echo "refresh=false" | sudo tee -a ${mntdir}/readme.txt 
 
 # Set a variable for each UUID, equal to a preset standard. The config file will overwrite all recognized UUIDs later on.
-#PROBLEM
 for uuid in "${drivelist[@]}"
 do
   altered_uuid=$(echo "$uuid" | tr '-' '_')
@@ -186,3 +186,6 @@ do
   # Mount the disk in the correct folder
   sudo mount /dev/disk/by-uuid/"$plainuuid" ${mntdir}/"${!pathuuid}"
 done
+# sudo find ${mntdir} -type f -exec chmod 666 {} \;
+# sudo find ${mntdir} -type d -exec chmod 777 {} \;
+# sudo chown -R --preserve-root www-data:www-data ${mntdir}
