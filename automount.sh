@@ -89,10 +89,11 @@ fi
 # Adding all drive UUIDs to an array
 for driveletter in {b..z}
 do
-  tempdrivevar=$(sudo blkid /dev/sd${driveletter}* | grep "/dev/sd..:" 2>&1)
+  tempdrivevar=$(sudo blkid /dev/sd${driveletter}* | grep -o ' UUID="[^"\r\n]*"' | tr -d '"' )
   # Add the attached drives UUID to the array, using string manipulation (variable:startpos:length)
-  drivelist+=(${tempdrivevar:17:36})
+  drivelist+=(${tempdrivevar:6})
 done
+
 # Unmount all connected drives, so that script can run properly.
 null=$(sudo umount -a 2>&1)
 
