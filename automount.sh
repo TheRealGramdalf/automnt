@@ -99,6 +99,7 @@ null=$(sudo umount -a 2>&1)
 
 # Remove all files within this folder. DO NOT PUT VALUABLE FILES DIRECTLY WITHIN THE MOUNT FOLDER!!!!!
 null=$(sudo rm ${mntdir}/* 2>&1)
+null=$(sudo rmdir ${mntdir}/* 2>&1)
 
 # Create a readme file for the automation side of things. Look inside the file to find out what this does.
 touch ${mntdir}/readme.md
