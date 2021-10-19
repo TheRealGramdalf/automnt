@@ -98,7 +98,7 @@ done
 null=$(sudo umount -a 2>&1)
 
 # Remove all files within this folder. DO NOT PUT VALUABLE FILES DIRECTLY WITHIN THE MOUNT FOLDER!!!!!
-null=$(sudo rm -r ${mntdir}/* 2>&1)
+null=$(sudo rm ${mntdir}/* 2>&1)
 
 # Create a readme file for the automation side of things. Look inside the file to find out what this does.
 touch ${mntdir}/readme.md
@@ -187,6 +187,6 @@ do
   # Mount the disk in the correct folder
   sudo mount /dev/disk/by-uuid/"$plainuuid" ${mntdir}/"${!pathuuid}"
 done
-# sudo find ${mntdir} -type f -exec chmod 666 {} \;
-# sudo find ${mntdir} -type d -exec chmod 777 {} \;
-# sudo chown -R --preserve-root www-data:www-data ${mntdir}
+sudo find ${mntdir} -type f -exec chmod 666 {} \;
+sudo find ${mntdir} -type d -exec chmod 777 {} \;
+sudo chown -R --preserve-root www-data:www-data ${mntdir}
